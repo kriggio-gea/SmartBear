@@ -1,0 +1,492 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/KENNETHRIGGIO/ShoppingListv1/1.01
+info:
+  version: '1.01'
+  title: shopping-list-api
+  description: The API for the GE Appliances Recipe 3.0 project
+paths:
+  /shopping/user/{userId}/shoppingList:
+    get: 
+      tags:
+        - ShoppingList
+      description: returns a shopping list by id
+      operationId: getOrCreateDefaultShoppingList
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          description: the user that we are getting the list for
+          schema:
+            type: string
+      responses:
+        '200':
+          description: THE shopping list we are looking for
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetShoppingListResponse'
+    post:
+      tags:
+        - ShoppingList
+      description: creates a new shopping list for given user
+      operationId: createShoppingList
+      parameters: 
+        - in: path
+          name: userId
+          required: true
+          description: the user that we are getting the list for
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateShoppingListRequest'
+      responses:
+        '201':
+          description: The newly created shopping list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateShoppingListResponse' 
+  /shopping/user/{userId}/shoppingList/{shoppingListId}:
+    get:
+      tags:
+        - ShoppingList
+      description: returns a shopping list by id
+      operationId: getShoppingList
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          description: the user that we are getting the list for
+          schema:
+            type: string
+        - in: path
+          name: shoppingListId
+          required: true
+          description: the specific shopping list to return
+          schema:
+            type: string
+      responses:
+        '200':
+          description: THE shopping list we are looking for
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetShoppingListResponse'
+    put:
+      tags:
+        - ShoppingList
+      description: updates an existing shopping list
+      operationId: updateShoppingList
+      parameters: 
+        - in: path
+          name: userId
+          required: true
+          description: the user that we are getting the list for
+          schema:
+            type: string
+        - in: path
+          name: shoppingListId
+          required: true
+          description: the specific shopping list to update
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateShoppingListRequest'
+      responses:
+        '200':
+          description: The newly created shopping list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateShoppingListResponse'
+    delete:
+      tags:
+        - ShoppingList
+      description: deletes a shopping list
+      operationId: deleteShoppingList
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          description: the user that we are deleting the list for
+          schema:
+            type: string
+        - in: path
+          name: shoppingListId
+          required: true
+          description: the specific shopping list to delete
+          schema:
+            type: string
+      responses:
+        '204':
+          description: The shopping list has been deleted
+  /shopping/user/{userId}/shoppingList/{shoppingListId}/shoppingListItems:
+    delete:
+      tags:
+          - ShoppingList
+      description: deletes a shopping list items for shopping list
+      operationId: removeAllItemsFromShoppingList
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          description: the user that we are deleting the list for
+          schema:
+            type: string
+        - in: path
+          name: shoppingListId
+          required: true
+          description: the specific shopping list to delete
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The newly created shopping list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetShoppingListResponse'
+  /shopping/user/{userId}/shoppingList/{shoppingListId}/shoppingListItem:
+    post:
+      tags:
+        - ShoppingListItem
+      description: creates a new shopping list for given user
+      operationId: createShoppingListItem
+      parameters: 
+        - in: path
+          name: userId
+          required: true
+          description: the user that we are getting the list for
+          schema:
+            type: string
+        - in: path
+          name: shoppingListId
+          required: true
+          description: the specific shopping list to return
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateShoppingListItemRequest'
+      responses:
+        '201':
+          description: The newly updated shopping list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateShoppingListItemResponse'
+    get:
+      tags:
+        - ShoppingListItem
+      description: returns a shopping list item by id
+      operationId: getAllShoppingListItemsForShoppingList
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          description: the user that we are getting the list items for
+          schema:
+            type: string
+        - in: path
+          name: shoppingListId
+          required: true
+          description: the specific shopping list items to return item for
+          schema:
+            type: string
+      responses:
+        '200':
+          description: THE shopping list we are looking for
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllShoppingListItemsForShoppingListResponse'
+  /shopping/user/{userId}/shoppingList/{shoppingListId}/shoppingListItem/{shoppingListItemId}:
+    get:
+      tags:
+        - ShoppingListItem
+      description: returns a shopping list item by id
+      operationId: getShoppingListItem
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          description: the user that we are getting the list item for
+          schema:
+            type: string
+        - in: path
+          name: shoppingListId
+          required: true
+          description: the specific shopping list to return item for
+          schema:
+            type: string
+        - in: path
+          name: shoppingListItemId
+          required: true
+          description: the specific shopping list item to return 
+          schema:
+            type: string
+      responses:
+        '200':
+          description: THE shopping list we are looking for
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetShoppingListItemResponse'
+    put:
+      tags:
+        - ShoppingListItem
+      description: updates an existing shopping list item
+      operationId: updateShoppingListItem
+      parameters: 
+        - in: path
+          name: userId
+          required: true
+          description: the user that we are getting the list for
+          schema:
+            type: string
+        - in: path
+          name: shoppingListId
+          required: true
+          description: the specific shopping list to update
+          schema:
+            type: string
+        - in: path
+          name: shoppingListItemId
+          required: true
+          description: the specific shopping list item to return 
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateShoppingListItemRequest'
+      responses:
+        '200':
+          description: The newly updated shopping list item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateShoppingListItemResponse'
+    delete:
+      tags:
+        - ShoppingListItem
+      description: deletes a shopping list
+      operationId: deleteShoppingListItem
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          description: the user that we are deleting the list item for
+          schema:
+            type: string
+        - in: path
+          name: shoppingListId
+          required: true
+          description: the specific shopping list to delete from
+          schema:
+            type: string
+        - in: path
+          name: shoppingListItemId
+          required: true
+          description: the specific shopping list item to return 
+          schema:
+            type: string
+      responses:
+        '204':
+          description: The shopping list item has been deleted
+components:
+  schemas:
+    CreateShoppingListRequest:
+      $ref: '#/components/schemas/CreateOrUpdateShoppingList'
+    CreateShoppingListResponse:
+      $ref: '#/components/schemas/ShoppingList'
+    GetShoppingListResponse:
+      $ref: '#/components/schemas/ShoppingList'
+    UpdateShoppingListRequest:
+      $ref: '#/components/schemas/CreateOrUpdateShoppingList'
+    UpdateShoppingListResponse:
+      $ref: '#/components/schemas/ShoppingList'
+    CreateOrUpdateShoppingList:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: the user that owns this object
+          example: user:0729a580-2240-11e6-9eb5-0002a5d5c51b
+        name:
+          type: string
+          description: a user friendly name of this shopping list
+          example: Thursday Night Dinner
+        descripton:
+          type: string
+          description: a description of this shopping list
+          example: We like Tacos and Burritos on Friday
+        isDefault:
+          type: boolean
+          description: if there is more than one shopping list for a user, this is the default one that will display and be used
+          example: true
+    ShoppingList:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: the user that owns this object
+          example: user:0729a580-2240-11e6-9eb5-0002a5d5c51b
+        shippingListId:
+          type: string
+          description: the unique id of this object
+          example: shoppingList:0729a580-2240-11e6-9eb5-0002a5d5c51b
+        name:
+          type: string
+          description: a user friendly name of this shopping list
+          example: Thursday Night Dinner
+        descripton:
+          type: string
+          description: a description of this shopping list
+          example: We like Tacos and Burritos on Friday
+        isDefault:
+          type: boolean
+          description: if there is more than one shopping list for a user, this is the default one that will display and be used
+          example: true
+        updatedAt:
+          type: string
+          format: date-time
+          description: the time this object was last updated
+    CreateShoppingListItemRequest:
+      $ref: '#/components/schemas/CreateOrUpdateShoppingListItem'
+    CreateShoppingListItemResponse:
+      $ref: '#/components/schemas/ShoppingListItem'
+    GetShoppingListItemResponse:
+      $ref: '#/components/schemas/ShoppingListItem'
+    UpdateShoppingListItemRequest:
+      $ref: '#/components/schemas/CreateOrUpdateShoppingListItem'
+    UpdateShoppingListItemResponse:
+      $ref: '#/components/schemas/ShoppingListItem'
+    GetAllShoppingListItemsForShoppingListResponse:
+      type: object
+      properties:
+        shoppingListItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShoppingListItem'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    CreateOrUpdateShoppingListItem:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: the user that owns this object
+          example: user:0729a580-2240-11e6-9eb5-0002a5d5c51b
+        shippingListId:
+          type: string
+          description: the unique id of this object's parent
+          example: shoppingList:0729a580-2240-11e6-9eb5-0002a5d5c51b
+        name:
+          type: string
+          description: a user friendly name of this shopping list
+          example: eggs
+        description:
+          type: string
+          description: a description of this shopping list item
+          example: Gade AAA White Cage Free Eggs
+        quantity:
+          type: integer
+          format: int32
+          description: then number of items to order weight weight does not apply
+          example: 12
+        weight:
+          type: number
+          description: the weight of the object sans the unit of weight, chose below
+          example: 1.5
+        weightUnit:
+          type: string
+          enum:
+            - ounces
+            - pounds
+            - grams
+            - kilograms
+            - dozen
+          description: the weight unit to be applied to the weight
+          example: pounds
+    ShoppingListItem:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: the user that owns this object
+          example: user:0729a580-2240-11e6-9eb5-0002a5d5c51b
+        shippingListItemId:
+          type: string
+          description: the unique id of this object
+          example: shoppingList:0729a580-2240-11e6-9eb5-0002a5d5c51b
+        shippingListId:
+          type: string
+          description: the unique id of this object's parent
+          example: shoppingList:0729a580-2240-11e6-9eb5-0002a5d5c51b
+        name:
+          type: string
+          description: a user friendly name of this shopping list
+          example: eggs
+        description:
+          type: string
+          description: a description of this shopping list item
+          example: Gade AAA White Cage Free Eggs
+        quantity:
+          type: integer
+          format: int32
+          description: then number of items to order weight weight does not apply
+          example: 12
+        weight:
+          type: number
+          description: the weight of the object sans the unit of weight, chose below
+          example: 1.5
+        weightUnit:
+          type: string
+          enum:
+            - ounces
+            - pounds
+            - grams
+            - kilograms
+            - dozen
+          description: the weight unit to be applied to the weight
+          example: pounds
+        updatedAt:
+          type: string
+          format: date-time
+          description: the time this object was last updated
+    Pagination:
+      type: object
+      properties:
+        offset:
+          type: integer
+          format: int32
+          description: echos the offset used int the request
+          example: 0
+        limit:
+          type: integer
+          format: int32
+          description: echos the limit used int the request
+          example: 100
+        count:
+          type: integer
+          format: int32
+          description: count of number of object returned, may be less than the limit if there were no more records
+          example: 100
+        total:
+          type: integer
+          format: int32
+          description: the total number of records in the reopsitory that match this request, useful for knowing how many pages, if not using a cursor method (which is not included in this pagination type for now)
+          example: 9876
